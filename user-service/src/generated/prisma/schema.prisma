@@ -1,0 +1,95 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Token {
+  id           String   @id @default(uuid())
+  userPhone    String   @db.VarChar(100)
+  user         User     @relation("UserTokenRelation", fields: [userPhone], references: [phone], onDelete: Cascade)
+  refreshToken String
+  accessToken  String?
+  expiresAt    DateTime
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model User {
+  phone           String    @id @db.VarChar(100)
+  username        String    @unique @db.VarChar(50)
+  email           String    @unique @db.VarChar(100)
+  password_hash   String    @db.Text
+  profile_picture String?   @db.Text
+  status          String?   @default("OFFLINE") @db.VarChar(20)
+  created_at      DateTime? @default(now())
+
+  // Relations
+  friends         Friend[]      @relation("UserFriends")
+  friendOf        Friend[]      @relation("FriendOfUser")
+  groupsOwned     Group[]       @relation("GroupOwner")
+  groupMembership GroupMember[] @relation("UserGroupMembership")
+  tokens          Token[]       @relation("UserTokenRelation") // thêm tên quan hệ cho rõ
+}
+
+model Friend {
+  user_phone   String    @db.VarChar(100)
+  friend_phone String    @db.VarChar(100)
+  status       Status
+  created_at   DateTime? @default(now())
+
+  // Relations
+  user   User @relation("UserFriends", fields: [user_phone], references: [phone], onDelete: Cascade)
+  friend User @relation("FriendOfUser", fields: [friend_phone], references: [phone], onDelete: Cascade)
+
+  @@id([user_phone, friend_phone])
+  @@index([friend_phone])
+}
+
+model Group {
+  id          BigInt    @id @default(autoincrement())
+  name        String    @db.VarChar(100)
+  owner_phone String    @db.VarChar(100)
+  created_at  DateTime? @default(now())
+
+  // Relations
+  owner   User          @relation("GroupOwner", fields: [owner_phone], references: [phone], onDelete: Cascade)
+  members GroupMember[]
+}
+
+model GroupMember {
+  group_id   BigInt
+  user_phone String    @db.VarChar(100)
+  role       Role?     @default(member)
+  joined_at  DateTime? @default(now())
+
+  // Relations
+  group Group @relation(fields: [group_id], references: [id], onDelete: Cascade)
+  user  User  @relation("UserGroupMembership", fields: [user_phone], references: [phone], onDelete: Cascade)
+
+  @@id([group_id, user_phone])
+  @@index([user_phone])
+}
+
+enum Status {
+  no
+  pending
+  accepted
+  blocked
+}
+
+enum Role {
+  member
+  admin
+  owner
+}
