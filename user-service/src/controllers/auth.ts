@@ -1,22 +1,22 @@
 import {Request,Response} from 'express'
 import {hashSync, compare } from 'bcrypt';
 import { prismaClient } from '..';
-import {User} from '../interface/type'
+import {User, AuthResponse, RegisterFormData } from '../interface/type'
 import { generateAccessToken, generateRefreshToken, verifyRefreshToken  } from '../helpers/authHelper';
 
 export const login = async (req: Request, res: Response): Promise<Response> => {
-    const { phone, password_hash }: { phone: string; password_hash: string } = req.body;
-    if(!phone || !password_hash){
+    const { email, password }: { email: string; password: string } = req.body;
+    if(!email || !password){
         return res.status(400).json({message:'All fields are required'})
     }
     try {
         const user = await prismaClient.user.findUnique({
-            where: { phone }
+            where: { email }
           });
         if(!user){
             return res.status(400).json({message:'User not found'})
         }
-        const isPasswordValid = compare (password_hash, user.password_hash);
+        const isPasswordValid = compare (password, user.password_hash);
         if (!isPasswordValid) {
             return res.status(401).json({ message: 'Invalid password' });
         }
@@ -46,19 +46,20 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
                 }
             });
         }
-          
-          return res.status(200).json({
-            message: 'Login successful',
-            accessToken,
-            refreshToken,
-            user: {
-              phone: user.phone,
-              username: user.username,
-              email: user.email,
-              status: user.status,
-              created_at: user.created_at
-            }
-          });          
+
+        const authResponse: AuthResponse = {
+          message: 'User Login successfully',
+          data: {
+            access_token: accessToken,
+            refresh_token: refreshToken,
+            expires: Date.now() + 7 * 24 * 60 * 60 * 1000, // 1 giờ sau
+            expires_refresh_token: Date.now() + 7 * 24 * 60 * 60 * 1000, // 7 ngày sau
+            user: user
+          }
+        };
+
+        return res.status(200).json(authResponse);
+        
 
     } catch (error) {
         console.error('Login error:', error);
@@ -67,8 +68,8 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
 };
 
 export const register = async (req:Request, res:Response): Promise<Response> => {
-    const {phone,username,email,password_hash} : User = req.body
-    if(!phone || !username || !email || !password_hash){
+    const {email,phone,password,confirm_password,term_of_use} : RegisterFormData = req.body
+    if(!phone ||  !email || !password){
         return res.status(400).json({message:'All fields are required'})
     }
     try {
@@ -80,36 +81,74 @@ export const register = async (req:Request, res:Response): Promise<Response> => 
                 ]
             }
         })
-        if(existingUser){
-            return res.status(400).json({message:'User already exists'})
+        if (existingUser) {
+          const reason = 
+            existingUser.phone === phone ? 'Phone already exists' :
+            existingUser.email === email ? 'Email already exists' :
+            'User already exists';
+        
+          return res.status(400).json({ message: reason });
         }
-        const hashedPassword = await hashSync(password_hash,10)
+        const hashedPassword = await hashSync(password,10)
         const newUser = await prismaClient.user.create({
             data:{
                 phone,
-                username,
+                name : "",
                 email,
                 password_hash:hashedPassword
             },
             select:{
                 phone: true,
-                username: true,
+                name: true,
                 email: true,
-                created_at: true,
+                avatar: true,
                 status: true
             }
         })
 
-        return res.status(201).json({
-            message: 'User registered successfully',
-            user: newUser
-          });
+        const accessToken = generateAccessToken(phone);
+        const refreshToken = generateRefreshToken(phone);
         
+        const existingToken = await prismaClient.token.findFirst({
+            where: { userPhone: phone }
+        });
+
+        if (existingToken) {
+            await prismaClient.token.update({
+                where: { id: existingToken.id },
+                data: {
+                    refreshToken,
+                    accessToken,
+                    expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+                }
+            });
+        } else {
+            await prismaClient.token.create({
+                data: {
+                    userPhone: phone,
+                    refreshToken,
+                    accessToken,
+                    expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+                }
+            });
+        }
+
+        const authResponse: AuthResponse = {
+          message: 'User registered successfully',
+          data: {
+            access_token: accessToken,
+            refresh_token: refreshToken,
+            expires: Date.now() + 60 * 60 * 1000, // 1 giờ sau
+            expires_refresh_token: Date.now() + 7 * 24 * 60 * 60 * 1000, // 7 ngày sau
+            user: newUser
+          }
+        };
+        
+        return res.status(201).json(authResponse);
     } catch (error) {
         console.error('Register error:', error);
         return res.status(500).json({ message: 'Internal Server Error' });
-    }
-    
+    }  
 }
 
 export const refreshToken = async (req: Request, res: Response): Promise<Response> => {
@@ -170,10 +209,10 @@ export const refreshToken = async (req: Request, res: Response): Promise<Respons
         refreshToken: newRefreshToken,
         user: {
           phone: user.phone,
-          username: user.username,
+          username: user.name,
           email: user.email,
           status: user.status,
-          created_at: user.created_at
+          created_at: user.createdAt
         }
       });
       
@@ -181,4 +220,8 @@ export const refreshToken = async (req: Request, res: Response): Promise<Respons
       console.error('Refresh token error:', error);
       return res.status(500).json({ message: 'Internal Server Error' });
     }
-  };
+};
+
+export const logout = async (req: Request, res: Response): Promise<Response> => {
+  return res.status(200).json({ message: 'User logged out successfully' });
+};

@@ -26,13 +26,13 @@ model Token {
 }
 
 model User {
-  phone           String    @id @db.VarChar(100)
-  username        String    @unique @db.VarChar(50)
-  email           String    @unique @db.VarChar(100)
-  password_hash   String    @db.Text
-  profile_picture String?   @db.Text
-  status          String?   @default("OFFLINE") @db.VarChar(20)
-  created_at      DateTime? @default(now())
+  phone         String    @id @db.VarChar(100)
+  name          String    @db.VarChar(50)
+  email         String    @unique @db.VarChar(100)
+  password_hash String    @db.Text
+  avatar        String?   @db.Text
+  status        String?   @default("OFFLINE") @db.VarChar(20)
+  createdAt     DateTime? @default(now())
 
   // Relations
   friends         Friend[]      @relation("UserFriends")
@@ -72,6 +72,7 @@ model GroupMember {
   user_phone String    @db.VarChar(100)
   role       Role?     @default(member)
   joined_at  DateTime? @default(now())
+  status     Boolean   @default(true) // thêm boolean field này
 
   // Relations
   group Group @relation(fields: [group_id], references: [id], onDelete: Cascade)

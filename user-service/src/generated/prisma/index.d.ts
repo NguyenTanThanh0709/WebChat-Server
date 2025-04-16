@@ -2285,64 +2285,64 @@ export namespace Prisma {
 
   export type UserMinAggregateOutputType = {
     phone: string | null
-    username: string | null
+    name: string | null
     email: string | null
     password_hash: string | null
-    profile_picture: string | null
+    avatar: string | null
     status: string | null
-    created_at: Date | null
+    createdAt: Date | null
   }
 
   export type UserMaxAggregateOutputType = {
     phone: string | null
-    username: string | null
+    name: string | null
     email: string | null
     password_hash: string | null
-    profile_picture: string | null
+    avatar: string | null
     status: string | null
-    created_at: Date | null
+    createdAt: Date | null
   }
 
   export type UserCountAggregateOutputType = {
     phone: number
-    username: number
+    name: number
     email: number
     password_hash: number
-    profile_picture: number
+    avatar: number
     status: number
-    created_at: number
+    createdAt: number
     _all: number
   }
 
 
   export type UserMinAggregateInputType = {
     phone?: true
-    username?: true
+    name?: true
     email?: true
     password_hash?: true
-    profile_picture?: true
+    avatar?: true
     status?: true
-    created_at?: true
+    createdAt?: true
   }
 
   export type UserMaxAggregateInputType = {
     phone?: true
-    username?: true
+    name?: true
     email?: true
     password_hash?: true
-    profile_picture?: true
+    avatar?: true
     status?: true
-    created_at?: true
+    createdAt?: true
   }
 
   export type UserCountAggregateInputType = {
     phone?: true
-    username?: true
+    name?: true
     email?: true
     password_hash?: true
-    profile_picture?: true
+    avatar?: true
     status?: true
-    created_at?: true
+    createdAt?: true
     _all?: true
   }
 
@@ -2420,12 +2420,12 @@ export namespace Prisma {
 
   export type UserGroupByOutputType = {
     phone: string
-    username: string
+    name: string
     email: string
     password_hash: string
-    profile_picture: string | null
+    avatar: string | null
     status: string | null
-    created_at: Date | null
+    createdAt: Date | null
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -2447,12 +2447,12 @@ export namespace Prisma {
 
   export type UserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     phone?: boolean
-    username?: boolean
+    name?: boolean
     email?: boolean
     password_hash?: boolean
-    profile_picture?: boolean
+    avatar?: boolean
     status?: boolean
-    created_at?: boolean
+    createdAt?: boolean
     friends?: boolean | User$friendsArgs<ExtArgs>
     friendOf?: boolean | User$friendOfArgs<ExtArgs>
     groupsOwned?: boolean | User$groupsOwnedArgs<ExtArgs>
@@ -2465,15 +2465,15 @@ export namespace Prisma {
 
   export type UserSelectScalar = {
     phone?: boolean
-    username?: boolean
+    name?: boolean
     email?: boolean
     password_hash?: boolean
-    profile_picture?: boolean
+    avatar?: boolean
     status?: boolean
-    created_at?: boolean
+    createdAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"phone" | "username" | "email" | "password_hash" | "profile_picture" | "status" | "created_at", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"phone" | "name" | "email" | "password_hash" | "avatar" | "status" | "createdAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     friends?: boolean | User$friendsArgs<ExtArgs>
     friendOf?: boolean | User$friendOfArgs<ExtArgs>
@@ -2494,12 +2494,12 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       phone: string
-      username: string
+      name: string
       email: string
       password_hash: string
-      profile_picture: string | null
+      avatar: string | null
       status: string | null
-      created_at: Date | null
+      createdAt: Date | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -2875,12 +2875,12 @@ export namespace Prisma {
    */
   interface UserFieldRefs {
     readonly phone: FieldRef<"User", 'String'>
-    readonly username: FieldRef<"User", 'String'>
+    readonly name: FieldRef<"User", 'String'>
     readonly email: FieldRef<"User", 'String'>
     readonly password_hash: FieldRef<"User", 'String'>
-    readonly profile_picture: FieldRef<"User", 'String'>
+    readonly avatar: FieldRef<"User", 'String'>
     readonly status: FieldRef<"User", 'String'>
-    readonly created_at: FieldRef<"User", 'DateTime'>
+    readonly createdAt: FieldRef<"User", 'DateTime'>
   }
     
 
@@ -5291,6 +5291,7 @@ export namespace Prisma {
     user_phone: string | null
     role: $Enums.Role | null
     joined_at: Date | null
+    status: boolean | null
   }
 
   export type GroupMemberMaxAggregateOutputType = {
@@ -5298,6 +5299,7 @@ export namespace Prisma {
     user_phone: string | null
     role: $Enums.Role | null
     joined_at: Date | null
+    status: boolean | null
   }
 
   export type GroupMemberCountAggregateOutputType = {
@@ -5305,6 +5307,7 @@ export namespace Prisma {
     user_phone: number
     role: number
     joined_at: number
+    status: number
     _all: number
   }
 
@@ -5322,6 +5325,7 @@ export namespace Prisma {
     user_phone?: true
     role?: true
     joined_at?: true
+    status?: true
   }
 
   export type GroupMemberMaxAggregateInputType = {
@@ -5329,6 +5333,7 @@ export namespace Prisma {
     user_phone?: true
     role?: true
     joined_at?: true
+    status?: true
   }
 
   export type GroupMemberCountAggregateInputType = {
@@ -5336,6 +5341,7 @@ export namespace Prisma {
     user_phone?: true
     role?: true
     joined_at?: true
+    status?: true
     _all?: true
   }
 
@@ -5430,6 +5436,7 @@ export namespace Prisma {
     user_phone: string
     role: $Enums.Role | null
     joined_at: Date | null
+    status: boolean
     _count: GroupMemberCountAggregateOutputType | null
     _avg: GroupMemberAvgAggregateOutputType | null
     _sum: GroupMemberSumAggregateOutputType | null
@@ -5456,6 +5463,7 @@ export namespace Prisma {
     user_phone?: boolean
     role?: boolean
     joined_at?: boolean
+    status?: boolean
     group?: boolean | GroupDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["groupMember"]>
@@ -5467,9 +5475,10 @@ export namespace Prisma {
     user_phone?: boolean
     role?: boolean
     joined_at?: boolean
+    status?: boolean
   }
 
-  export type GroupMemberOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"group_id" | "user_phone" | "role" | "joined_at", ExtArgs["result"]["groupMember"]>
+  export type GroupMemberOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"group_id" | "user_phone" | "role" | "joined_at" | "status", ExtArgs["result"]["groupMember"]>
   export type GroupMemberInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     group?: boolean | GroupDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -5486,6 +5495,7 @@ export namespace Prisma {
       user_phone: string
       role: $Enums.Role | null
       joined_at: Date | null
+      status: boolean
     }, ExtArgs["result"]["groupMember"]>
     composites: {}
   }
@@ -5861,6 +5871,7 @@ export namespace Prisma {
     readonly user_phone: FieldRef<"GroupMember", 'String'>
     readonly role: FieldRef<"GroupMember", 'Role'>
     readonly joined_at: FieldRef<"GroupMember", 'DateTime'>
+    readonly status: FieldRef<"GroupMember", 'Boolean'>
   }
     
 
@@ -6251,12 +6262,12 @@ export namespace Prisma {
 
   export const UserScalarFieldEnum: {
     phone: 'phone',
-    username: 'username',
+    name: 'name',
     email: 'email',
     password_hash: 'password_hash',
-    profile_picture: 'profile_picture',
+    avatar: 'avatar',
     status: 'status',
-    created_at: 'created_at'
+    createdAt: 'createdAt'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -6286,7 +6297,8 @@ export namespace Prisma {
     group_id: 'group_id',
     user_phone: 'user_phone',
     role: 'role',
-    joined_at: 'joined_at'
+    joined_at: 'joined_at',
+    status: 'status'
   };
 
   export type GroupMemberScalarFieldEnum = (typeof GroupMemberScalarFieldEnum)[keyof typeof GroupMemberScalarFieldEnum]
@@ -6320,10 +6332,10 @@ export namespace Prisma {
 
   export const UserOrderByRelevanceFieldEnum: {
     phone: 'phone',
-    username: 'username',
+    name: 'name',
     email: 'email',
     password_hash: 'password_hash',
-    profile_picture: 'profile_picture',
+    avatar: 'avatar',
     status: 'status'
   };
 
@@ -6390,6 +6402,13 @@ export namespace Prisma {
    * Reference to a field of type 'Role'
    */
   export type EnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role'>
+    
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -6481,12 +6500,12 @@ export namespace Prisma {
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     phone?: StringFilter<"User"> | string
-    username?: StringFilter<"User"> | string
+    name?: StringFilter<"User"> | string
     email?: StringFilter<"User"> | string
     password_hash?: StringFilter<"User"> | string
-    profile_picture?: StringNullableFilter<"User"> | string | null
+    avatar?: StringNullableFilter<"User"> | string | null
     status?: StringNullableFilter<"User"> | string | null
-    created_at?: DateTimeNullableFilter<"User"> | Date | string | null
+    createdAt?: DateTimeNullableFilter<"User"> | Date | string | null
     friends?: FriendListRelationFilter
     friendOf?: FriendListRelationFilter
     groupsOwned?: GroupListRelationFilter
@@ -6496,12 +6515,12 @@ export namespace Prisma {
 
   export type UserOrderByWithRelationInput = {
     phone?: SortOrder
-    username?: SortOrder
+    name?: SortOrder
     email?: SortOrder
     password_hash?: SortOrder
-    profile_picture?: SortOrderInput | SortOrder
+    avatar?: SortOrderInput | SortOrder
     status?: SortOrderInput | SortOrder
-    created_at?: SortOrderInput | SortOrder
+    createdAt?: SortOrderInput | SortOrder
     friends?: FriendOrderByRelationAggregateInput
     friendOf?: FriendOrderByRelationAggregateInput
     groupsOwned?: GroupOrderByRelationAggregateInput
@@ -6512,30 +6531,30 @@ export namespace Prisma {
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     phone?: string
-    username?: string
     email?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
+    name?: StringFilter<"User"> | string
     password_hash?: StringFilter<"User"> | string
-    profile_picture?: StringNullableFilter<"User"> | string | null
+    avatar?: StringNullableFilter<"User"> | string | null
     status?: StringNullableFilter<"User"> | string | null
-    created_at?: DateTimeNullableFilter<"User"> | Date | string | null
+    createdAt?: DateTimeNullableFilter<"User"> | Date | string | null
     friends?: FriendListRelationFilter
     friendOf?: FriendListRelationFilter
     groupsOwned?: GroupListRelationFilter
     groupMembership?: GroupMemberListRelationFilter
     tokens?: TokenListRelationFilter
-  }, "phone" | "username" | "email">
+  }, "phone" | "email">
 
   export type UserOrderByWithAggregationInput = {
     phone?: SortOrder
-    username?: SortOrder
+    name?: SortOrder
     email?: SortOrder
     password_hash?: SortOrder
-    profile_picture?: SortOrderInput | SortOrder
+    avatar?: SortOrderInput | SortOrder
     status?: SortOrderInput | SortOrder
-    created_at?: SortOrderInput | SortOrder
+    createdAt?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -6546,12 +6565,12 @@ export namespace Prisma {
     OR?: UserScalarWhereWithAggregatesInput[]
     NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
     phone?: StringWithAggregatesFilter<"User"> | string
-    username?: StringWithAggregatesFilter<"User"> | string
+    name?: StringWithAggregatesFilter<"User"> | string
     email?: StringWithAggregatesFilter<"User"> | string
     password_hash?: StringWithAggregatesFilter<"User"> | string
-    profile_picture?: StringNullableWithAggregatesFilter<"User"> | string | null
+    avatar?: StringNullableWithAggregatesFilter<"User"> | string | null
     status?: StringNullableWithAggregatesFilter<"User"> | string | null
-    created_at?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+    createdAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   }
 
   export type FriendWhereInput = {
@@ -6673,6 +6692,7 @@ export namespace Prisma {
     user_phone?: StringFilter<"GroupMember"> | string
     role?: EnumRoleNullableFilter<"GroupMember"> | $Enums.Role | null
     joined_at?: DateTimeNullableFilter<"GroupMember"> | Date | string | null
+    status?: BoolFilter<"GroupMember"> | boolean
     group?: XOR<GroupScalarRelationFilter, GroupWhereInput>
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
@@ -6682,6 +6702,7 @@ export namespace Prisma {
     user_phone?: SortOrder
     role?: SortOrderInput | SortOrder
     joined_at?: SortOrderInput | SortOrder
+    status?: SortOrder
     group?: GroupOrderByWithRelationInput
     user?: UserOrderByWithRelationInput
     _relevance?: GroupMemberOrderByRelevanceInput
@@ -6696,6 +6717,7 @@ export namespace Prisma {
     user_phone?: StringFilter<"GroupMember"> | string
     role?: EnumRoleNullableFilter<"GroupMember"> | $Enums.Role | null
     joined_at?: DateTimeNullableFilter<"GroupMember"> | Date | string | null
+    status?: BoolFilter<"GroupMember"> | boolean
     group?: XOR<GroupScalarRelationFilter, GroupWhereInput>
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "group_id_user_phone">
@@ -6705,6 +6727,7 @@ export namespace Prisma {
     user_phone?: SortOrder
     role?: SortOrderInput | SortOrder
     joined_at?: SortOrderInput | SortOrder
+    status?: SortOrder
     _count?: GroupMemberCountOrderByAggregateInput
     _avg?: GroupMemberAvgOrderByAggregateInput
     _max?: GroupMemberMaxOrderByAggregateInput
@@ -6720,6 +6743,7 @@ export namespace Prisma {
     user_phone?: StringWithAggregatesFilter<"GroupMember"> | string
     role?: EnumRoleNullableWithAggregatesFilter<"GroupMember"> | $Enums.Role | null
     joined_at?: DateTimeNullableWithAggregatesFilter<"GroupMember"> | Date | string | null
+    status?: BoolWithAggregatesFilter<"GroupMember"> | boolean
   }
 
   export type TokenCreateInput = {
@@ -6793,12 +6817,12 @@ export namespace Prisma {
 
   export type UserCreateInput = {
     phone: string
-    username: string
+    name: string
     email: string
     password_hash: string
-    profile_picture?: string | null
+    avatar?: string | null
     status?: string | null
-    created_at?: Date | string | null
+    createdAt?: Date | string | null
     friends?: FriendCreateNestedManyWithoutUserInput
     friendOf?: FriendCreateNestedManyWithoutFriendInput
     groupsOwned?: GroupCreateNestedManyWithoutOwnerInput
@@ -6808,12 +6832,12 @@ export namespace Prisma {
 
   export type UserUncheckedCreateInput = {
     phone: string
-    username: string
+    name: string
     email: string
     password_hash: string
-    profile_picture?: string | null
+    avatar?: string | null
     status?: string | null
-    created_at?: Date | string | null
+    createdAt?: Date | string | null
     friends?: FriendUncheckedCreateNestedManyWithoutUserInput
     friendOf?: FriendUncheckedCreateNestedManyWithoutFriendInput
     groupsOwned?: GroupUncheckedCreateNestedManyWithoutOwnerInput
@@ -6823,12 +6847,12 @@ export namespace Prisma {
 
   export type UserUpdateInput = {
     phone?: StringFieldUpdateOperationsInput | string
-    username?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
-    profile_picture?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     friends?: FriendUpdateManyWithoutUserNestedInput
     friendOf?: FriendUpdateManyWithoutFriendNestedInput
     groupsOwned?: GroupUpdateManyWithoutOwnerNestedInput
@@ -6838,12 +6862,12 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateInput = {
     phone?: StringFieldUpdateOperationsInput | string
-    username?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
-    profile_picture?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     friends?: FriendUncheckedUpdateManyWithoutUserNestedInput
     friendOf?: FriendUncheckedUpdateManyWithoutFriendNestedInput
     groupsOwned?: GroupUncheckedUpdateManyWithoutOwnerNestedInput
@@ -6853,32 +6877,32 @@ export namespace Prisma {
 
   export type UserCreateManyInput = {
     phone: string
-    username: string
+    name: string
     email: string
     password_hash: string
-    profile_picture?: string | null
+    avatar?: string | null
     status?: string | null
-    created_at?: Date | string | null
+    createdAt?: Date | string | null
   }
 
   export type UserUpdateManyMutationInput = {
     phone?: StringFieldUpdateOperationsInput | string
-    username?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
-    profile_picture?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type UserUncheckedUpdateManyInput = {
     phone?: StringFieldUpdateOperationsInput | string
-    username?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
-    profile_picture?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type FriendCreateInput = {
@@ -6983,6 +7007,7 @@ export namespace Prisma {
   export type GroupMemberCreateInput = {
     role?: $Enums.Role | null
     joined_at?: Date | string | null
+    status?: boolean
     group: GroupCreateNestedOneWithoutMembersInput
     user: UserCreateNestedOneWithoutGroupMembershipInput
   }
@@ -6992,11 +7017,13 @@ export namespace Prisma {
     user_phone: string
     role?: $Enums.Role | null
     joined_at?: Date | string | null
+    status?: boolean
   }
 
   export type GroupMemberUpdateInput = {
     role?: NullableEnumRoleFieldUpdateOperationsInput | $Enums.Role | null
     joined_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: BoolFieldUpdateOperationsInput | boolean
     group?: GroupUpdateOneRequiredWithoutMembersNestedInput
     user?: UserUpdateOneRequiredWithoutGroupMembershipNestedInput
   }
@@ -7006,6 +7033,7 @@ export namespace Prisma {
     user_phone?: StringFieldUpdateOperationsInput | string
     role?: NullableEnumRoleFieldUpdateOperationsInput | $Enums.Role | null
     joined_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type GroupMemberCreateManyInput = {
@@ -7013,11 +7041,13 @@ export namespace Prisma {
     user_phone: string
     role?: $Enums.Role | null
     joined_at?: Date | string | null
+    status?: boolean
   }
 
   export type GroupMemberUpdateManyMutationInput = {
     role?: NullableEnumRoleFieldUpdateOperationsInput | $Enums.Role | null
     joined_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type GroupMemberUncheckedUpdateManyInput = {
@@ -7025,6 +7055,7 @@ export namespace Prisma {
     user_phone?: StringFieldUpdateOperationsInput | string
     role?: NullableEnumRoleFieldUpdateOperationsInput | $Enums.Role | null
     joined_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -7223,32 +7254,32 @@ export namespace Prisma {
 
   export type UserCountOrderByAggregateInput = {
     phone?: SortOrder
-    username?: SortOrder
+    name?: SortOrder
     email?: SortOrder
     password_hash?: SortOrder
-    profile_picture?: SortOrder
+    avatar?: SortOrder
     status?: SortOrder
-    created_at?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
     phone?: SortOrder
-    username?: SortOrder
+    name?: SortOrder
     email?: SortOrder
     password_hash?: SortOrder
-    profile_picture?: SortOrder
+    avatar?: SortOrder
     status?: SortOrder
-    created_at?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
     phone?: SortOrder
-    username?: SortOrder
+    name?: SortOrder
     email?: SortOrder
     password_hash?: SortOrder
-    profile_picture?: SortOrder
+    avatar?: SortOrder
     status?: SortOrder
-    created_at?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -7383,6 +7414,11 @@ export namespace Prisma {
     not?: NestedEnumRoleNullableFilter<$PrismaModel> | $Enums.Role | null
   }
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type GroupScalarRelationFilter = {
     is?: GroupWhereInput
     isNot?: GroupWhereInput
@@ -7404,6 +7440,7 @@ export namespace Prisma {
     user_phone?: SortOrder
     role?: SortOrder
     joined_at?: SortOrder
+    status?: SortOrder
   }
 
   export type GroupMemberAvgOrderByAggregateInput = {
@@ -7415,6 +7452,7 @@ export namespace Prisma {
     user_phone?: SortOrder
     role?: SortOrder
     joined_at?: SortOrder
+    status?: SortOrder
   }
 
   export type GroupMemberMinOrderByAggregateInput = {
@@ -7422,6 +7460,7 @@ export namespace Prisma {
     user_phone?: SortOrder
     role?: SortOrder
     joined_at?: SortOrder
+    status?: SortOrder
   }
 
   export type GroupMemberSumOrderByAggregateInput = {
@@ -7436,6 +7475,14 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedEnumRoleNullableFilter<$PrismaModel>
     _max?: NestedEnumRoleNullableFilter<$PrismaModel>
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type UserCreateNestedOneWithoutTokensInput = {
@@ -7790,6 +7837,10 @@ export namespace Prisma {
     set?: $Enums.Role | null
   }
 
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
   export type GroupUpdateOneRequiredWithoutMembersNestedInput = {
     create?: XOR<GroupCreateWithoutMembersInput, GroupUncheckedCreateWithoutMembersInput>
     connectOrCreate?: GroupCreateOrConnectWithoutMembersInput
@@ -8006,6 +8057,11 @@ export namespace Prisma {
     not?: NestedEnumRoleNullableFilter<$PrismaModel> | $Enums.Role | null
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type NestedEnumRoleNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel> | null
     in?: $Enums.Role[] | null
@@ -8016,14 +8072,22 @@ export namespace Prisma {
     _max?: NestedEnumRoleNullableFilter<$PrismaModel>
   }
 
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type UserCreateWithoutTokensInput = {
     phone: string
-    username: string
+    name: string
     email: string
     password_hash: string
-    profile_picture?: string | null
+    avatar?: string | null
     status?: string | null
-    created_at?: Date | string | null
+    createdAt?: Date | string | null
     friends?: FriendCreateNestedManyWithoutUserInput
     friendOf?: FriendCreateNestedManyWithoutFriendInput
     groupsOwned?: GroupCreateNestedManyWithoutOwnerInput
@@ -8032,12 +8096,12 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutTokensInput = {
     phone: string
-    username: string
+    name: string
     email: string
     password_hash: string
-    profile_picture?: string | null
+    avatar?: string | null
     status?: string | null
-    created_at?: Date | string | null
+    createdAt?: Date | string | null
     friends?: FriendUncheckedCreateNestedManyWithoutUserInput
     friendOf?: FriendUncheckedCreateNestedManyWithoutFriendInput
     groupsOwned?: GroupUncheckedCreateNestedManyWithoutOwnerInput
@@ -8062,12 +8126,12 @@ export namespace Prisma {
 
   export type UserUpdateWithoutTokensInput = {
     phone?: StringFieldUpdateOperationsInput | string
-    username?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
-    profile_picture?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     friends?: FriendUpdateManyWithoutUserNestedInput
     friendOf?: FriendUpdateManyWithoutFriendNestedInput
     groupsOwned?: GroupUpdateManyWithoutOwnerNestedInput
@@ -8076,12 +8140,12 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutTokensInput = {
     phone?: StringFieldUpdateOperationsInput | string
-    username?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
-    profile_picture?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     friends?: FriendUncheckedUpdateManyWithoutUserNestedInput
     friendOf?: FriendUncheckedUpdateManyWithoutFriendNestedInput
     groupsOwned?: GroupUncheckedUpdateManyWithoutOwnerNestedInput
@@ -8159,6 +8223,7 @@ export namespace Prisma {
   export type GroupMemberCreateWithoutUserInput = {
     role?: $Enums.Role | null
     joined_at?: Date | string | null
+    status?: boolean
     group: GroupCreateNestedOneWithoutMembersInput
   }
 
@@ -8166,6 +8231,7 @@ export namespace Prisma {
     group_id: bigint | number
     role?: $Enums.Role | null
     joined_at?: Date | string | null
+    status?: boolean
   }
 
   export type GroupMemberCreateOrConnectWithoutUserInput = {
@@ -8298,6 +8364,7 @@ export namespace Prisma {
     user_phone?: StringFilter<"GroupMember"> | string
     role?: EnumRoleNullableFilter<"GroupMember"> | $Enums.Role | null
     joined_at?: DateTimeNullableFilter<"GroupMember"> | Date | string | null
+    status?: BoolFilter<"GroupMember"> | boolean
   }
 
   export type TokenUpsertWithWhereUniqueWithoutUserInput = {
@@ -8331,12 +8398,12 @@ export namespace Prisma {
 
   export type UserCreateWithoutFriendsInput = {
     phone: string
-    username: string
+    name: string
     email: string
     password_hash: string
-    profile_picture?: string | null
+    avatar?: string | null
     status?: string | null
-    created_at?: Date | string | null
+    createdAt?: Date | string | null
     friendOf?: FriendCreateNestedManyWithoutFriendInput
     groupsOwned?: GroupCreateNestedManyWithoutOwnerInput
     groupMembership?: GroupMemberCreateNestedManyWithoutUserInput
@@ -8345,12 +8412,12 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutFriendsInput = {
     phone: string
-    username: string
+    name: string
     email: string
     password_hash: string
-    profile_picture?: string | null
+    avatar?: string | null
     status?: string | null
-    created_at?: Date | string | null
+    createdAt?: Date | string | null
     friendOf?: FriendUncheckedCreateNestedManyWithoutFriendInput
     groupsOwned?: GroupUncheckedCreateNestedManyWithoutOwnerInput
     groupMembership?: GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -8364,12 +8431,12 @@ export namespace Prisma {
 
   export type UserCreateWithoutFriendOfInput = {
     phone: string
-    username: string
+    name: string
     email: string
     password_hash: string
-    profile_picture?: string | null
+    avatar?: string | null
     status?: string | null
-    created_at?: Date | string | null
+    createdAt?: Date | string | null
     friends?: FriendCreateNestedManyWithoutUserInput
     groupsOwned?: GroupCreateNestedManyWithoutOwnerInput
     groupMembership?: GroupMemberCreateNestedManyWithoutUserInput
@@ -8378,12 +8445,12 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutFriendOfInput = {
     phone: string
-    username: string
+    name: string
     email: string
     password_hash: string
-    profile_picture?: string | null
+    avatar?: string | null
     status?: string | null
-    created_at?: Date | string | null
+    createdAt?: Date | string | null
     friends?: FriendUncheckedCreateNestedManyWithoutUserInput
     groupsOwned?: GroupUncheckedCreateNestedManyWithoutOwnerInput
     groupMembership?: GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -8408,12 +8475,12 @@ export namespace Prisma {
 
   export type UserUpdateWithoutFriendsInput = {
     phone?: StringFieldUpdateOperationsInput | string
-    username?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
-    profile_picture?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     friendOf?: FriendUpdateManyWithoutFriendNestedInput
     groupsOwned?: GroupUpdateManyWithoutOwnerNestedInput
     groupMembership?: GroupMemberUpdateManyWithoutUserNestedInput
@@ -8422,12 +8489,12 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutFriendsInput = {
     phone?: StringFieldUpdateOperationsInput | string
-    username?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
-    profile_picture?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     friendOf?: FriendUncheckedUpdateManyWithoutFriendNestedInput
     groupsOwned?: GroupUncheckedUpdateManyWithoutOwnerNestedInput
     groupMembership?: GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -8447,12 +8514,12 @@ export namespace Prisma {
 
   export type UserUpdateWithoutFriendOfInput = {
     phone?: StringFieldUpdateOperationsInput | string
-    username?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
-    profile_picture?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     friends?: FriendUpdateManyWithoutUserNestedInput
     groupsOwned?: GroupUpdateManyWithoutOwnerNestedInput
     groupMembership?: GroupMemberUpdateManyWithoutUserNestedInput
@@ -8461,12 +8528,12 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutFriendOfInput = {
     phone?: StringFieldUpdateOperationsInput | string
-    username?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
-    profile_picture?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     friends?: FriendUncheckedUpdateManyWithoutUserNestedInput
     groupsOwned?: GroupUncheckedUpdateManyWithoutOwnerNestedInput
     groupMembership?: GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -8475,12 +8542,12 @@ export namespace Prisma {
 
   export type UserCreateWithoutGroupsOwnedInput = {
     phone: string
-    username: string
+    name: string
     email: string
     password_hash: string
-    profile_picture?: string | null
+    avatar?: string | null
     status?: string | null
-    created_at?: Date | string | null
+    createdAt?: Date | string | null
     friends?: FriendCreateNestedManyWithoutUserInput
     friendOf?: FriendCreateNestedManyWithoutFriendInput
     groupMembership?: GroupMemberCreateNestedManyWithoutUserInput
@@ -8489,12 +8556,12 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutGroupsOwnedInput = {
     phone: string
-    username: string
+    name: string
     email: string
     password_hash: string
-    profile_picture?: string | null
+    avatar?: string | null
     status?: string | null
-    created_at?: Date | string | null
+    createdAt?: Date | string | null
     friends?: FriendUncheckedCreateNestedManyWithoutUserInput
     friendOf?: FriendUncheckedCreateNestedManyWithoutFriendInput
     groupMembership?: GroupMemberUncheckedCreateNestedManyWithoutUserInput
@@ -8509,6 +8576,7 @@ export namespace Prisma {
   export type GroupMemberCreateWithoutGroupInput = {
     role?: $Enums.Role | null
     joined_at?: Date | string | null
+    status?: boolean
     user: UserCreateNestedOneWithoutGroupMembershipInput
   }
 
@@ -8516,6 +8584,7 @@ export namespace Prisma {
     user_phone: string
     role?: $Enums.Role | null
     joined_at?: Date | string | null
+    status?: boolean
   }
 
   export type GroupMemberCreateOrConnectWithoutGroupInput = {
@@ -8541,12 +8610,12 @@ export namespace Prisma {
 
   export type UserUpdateWithoutGroupsOwnedInput = {
     phone?: StringFieldUpdateOperationsInput | string
-    username?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
-    profile_picture?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     friends?: FriendUpdateManyWithoutUserNestedInput
     friendOf?: FriendUpdateManyWithoutFriendNestedInput
     groupMembership?: GroupMemberUpdateManyWithoutUserNestedInput
@@ -8555,12 +8624,12 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutGroupsOwnedInput = {
     phone?: StringFieldUpdateOperationsInput | string
-    username?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
-    profile_picture?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     friends?: FriendUncheckedUpdateManyWithoutUserNestedInput
     friendOf?: FriendUncheckedUpdateManyWithoutFriendNestedInput
     groupMembership?: GroupMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -8604,12 +8673,12 @@ export namespace Prisma {
 
   export type UserCreateWithoutGroupMembershipInput = {
     phone: string
-    username: string
+    name: string
     email: string
     password_hash: string
-    profile_picture?: string | null
+    avatar?: string | null
     status?: string | null
-    created_at?: Date | string | null
+    createdAt?: Date | string | null
     friends?: FriendCreateNestedManyWithoutUserInput
     friendOf?: FriendCreateNestedManyWithoutFriendInput
     groupsOwned?: GroupCreateNestedManyWithoutOwnerInput
@@ -8618,12 +8687,12 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutGroupMembershipInput = {
     phone: string
-    username: string
+    name: string
     email: string
     password_hash: string
-    profile_picture?: string | null
+    avatar?: string | null
     status?: string | null
-    created_at?: Date | string | null
+    createdAt?: Date | string | null
     friends?: FriendUncheckedCreateNestedManyWithoutUserInput
     friendOf?: FriendUncheckedCreateNestedManyWithoutFriendInput
     groupsOwned?: GroupUncheckedCreateNestedManyWithoutOwnerInput
@@ -8673,12 +8742,12 @@ export namespace Prisma {
 
   export type UserUpdateWithoutGroupMembershipInput = {
     phone?: StringFieldUpdateOperationsInput | string
-    username?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
-    profile_picture?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     friends?: FriendUpdateManyWithoutUserNestedInput
     friendOf?: FriendUpdateManyWithoutFriendNestedInput
     groupsOwned?: GroupUpdateManyWithoutOwnerNestedInput
@@ -8687,12 +8756,12 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutGroupMembershipInput = {
     phone?: StringFieldUpdateOperationsInput | string
-    username?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password_hash?: StringFieldUpdateOperationsInput | string
-    profile_picture?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     friends?: FriendUncheckedUpdateManyWithoutUserNestedInput
     friendOf?: FriendUncheckedUpdateManyWithoutFriendNestedInput
     groupsOwned?: GroupUncheckedUpdateManyWithoutOwnerNestedInput
@@ -8721,6 +8790,7 @@ export namespace Prisma {
     group_id: bigint | number
     role?: $Enums.Role | null
     joined_at?: Date | string | null
+    status?: boolean
   }
 
   export type TokenCreateManyUserInput = {
@@ -8791,6 +8861,7 @@ export namespace Prisma {
   export type GroupMemberUpdateWithoutUserInput = {
     role?: NullableEnumRoleFieldUpdateOperationsInput | $Enums.Role | null
     joined_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: BoolFieldUpdateOperationsInput | boolean
     group?: GroupUpdateOneRequiredWithoutMembersNestedInput
   }
 
@@ -8798,12 +8869,14 @@ export namespace Prisma {
     group_id?: BigIntFieldUpdateOperationsInput | bigint | number
     role?: NullableEnumRoleFieldUpdateOperationsInput | $Enums.Role | null
     joined_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type GroupMemberUncheckedUpdateManyWithoutUserInput = {
     group_id?: BigIntFieldUpdateOperationsInput | bigint | number
     role?: NullableEnumRoleFieldUpdateOperationsInput | $Enums.Role | null
     joined_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type TokenUpdateWithoutUserInput = {
@@ -8837,11 +8910,13 @@ export namespace Prisma {
     user_phone: string
     role?: $Enums.Role | null
     joined_at?: Date | string | null
+    status?: boolean
   }
 
   export type GroupMemberUpdateWithoutGroupInput = {
     role?: NullableEnumRoleFieldUpdateOperationsInput | $Enums.Role | null
     joined_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: BoolFieldUpdateOperationsInput | boolean
     user?: UserUpdateOneRequiredWithoutGroupMembershipNestedInput
   }
 
@@ -8849,12 +8924,14 @@ export namespace Prisma {
     user_phone?: StringFieldUpdateOperationsInput | string
     role?: NullableEnumRoleFieldUpdateOperationsInput | $Enums.Role | null
     joined_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type GroupMemberUncheckedUpdateManyWithoutGroupInput = {
     user_phone?: StringFieldUpdateOperationsInput | string
     role?: NullableEnumRoleFieldUpdateOperationsInput | $Enums.Role | null
     joined_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: BoolFieldUpdateOperationsInput | boolean
   }
 
 

@@ -129,12 +129,12 @@ exports.Prisma.TokenScalarFieldEnum = {
 
 exports.Prisma.UserScalarFieldEnum = {
   phone: 'phone',
-  username: 'username',
+  name: 'name',
   email: 'email',
   password_hash: 'password_hash',
-  profile_picture: 'profile_picture',
+  avatar: 'avatar',
   status: 'status',
-  created_at: 'created_at'
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.FriendScalarFieldEnum = {
@@ -155,7 +155,8 @@ exports.Prisma.GroupMemberScalarFieldEnum = {
   group_id: 'group_id',
   user_phone: 'user_phone',
   role: 'role',
-  joined_at: 'joined_at'
+  joined_at: 'joined_at',
+  status: 'status'
 };
 
 exports.Prisma.SortOrder = {
@@ -177,10 +178,10 @@ exports.Prisma.TokenOrderByRelevanceFieldEnum = {
 
 exports.Prisma.UserOrderByRelevanceFieldEnum = {
   phone: 'phone',
-  username: 'username',
+  name: 'name',
   email: 'email',
   password_hash: 'password_hash',
-  profile_picture: 'profile_picture',
+  avatar: 'avatar',
   status: 'status'
 };
 
