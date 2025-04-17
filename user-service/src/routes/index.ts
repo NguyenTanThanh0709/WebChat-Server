@@ -6,5 +6,5 @@ const rootRouter: Router = Router();
 
 
 rootRouter.use('/auth', authRoutes);
-rootRouter.use('/user',verifyToken, userRoutes);
+rootRouter.use('/user', userRoutes);
 export default rootRouter;

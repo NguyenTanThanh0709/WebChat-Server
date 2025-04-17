@@ -3,9 +3,9 @@ export interface User {
     name: string;
     email: string;
     password_hash?: string;
-    profile_picture?: string | null;
+    avatar?: string | null;
     status?: 'ONLINE' | 'OFFLINE' | string | null;
-    created_at?: Date | null;
+    createdAt?: Date | null;
 }
 
 export type FriendStatus = 'no' | 'pending' | 'accepted' | 'blocked';
@@ -48,6 +48,8 @@ export interface SuccessResponse<Data> {
   message: string
   data: Data
 }
+
+
 
 // syntax '-?' will remove property undefined of key optional
 export type NoUndefinedField<T> = {
