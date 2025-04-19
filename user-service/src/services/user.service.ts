@@ -1,3 +1,4 @@
+import { Prisma } from '@prisma/client'
 import { prismaClient } from '..';
 import { User } from '../interface/type';
 import {hashSync, compareSync} from 'bcrypt';
@@ -105,89 +106,131 @@ interface PaginatedUser extends User {
   isFriend: boolean;
 }
 
+interface PaginatedResponse {
+  users: PaginatedUser[];
+  pagination: {
+    page: number;
+    limit: number;
+    page_size: number;
+  };
+}
+
 export const getUsersWithOptionalSearchAndPaginationService = async (
   phone: string,
   page: number = 0,
   pageSize: number = 5,
-  searchPhone?: string
-): Promise<PaginatedUser[]> => {
+  searchPhone?: string,
+  sortBy?: string // Add the sortBy parameter
+): Promise<PaginatedResponse> => {
   // Điều kiện lọc người dùng
-  const userWhereCondition = searchPhone
-    ? {
+  const userWhereCondition = {
+    AND: [
+      {
         phone: {
-          contains: searchPhone,
+          not: phone, // Loại trừ người đang đăng nhập
         },
-      }
-    : {}; // không lọc nếu không có searchPhone
+      },
+      ...(searchPhone
+        ? [
+            {
+              phone: {
+                contains: searchPhone,
+              },
+            },
+          ]
+        : []),
+    ],
+  };
+
+    // Determine sorting order based on sortBy parameter
+    const orderBy = sortBy === 'createdAt' ? { createdAt: 'desc' as const } : undefined;
 
   // Lấy danh sách người dùng theo phân trang và điều kiện tìm kiếm
   const users = await prismaClient.user.findMany({
     where: userWhereCondition,
     skip: page * pageSize,
     take: pageSize,
+    orderBy,
     select: {
       phone: true,
       name: true,
       email: true,
       avatar: true,
       status: true,
+      createdAt: true,
     },
   });
 
   // Lấy danh sách bạn bè của người hiện tại
-  const friends = await prismaClient.friend.findMany({
-    where: {
-      OR: [
-        { user_phone: phone },
-        { friend_phone: phone },
-      ],
-      status: 'accepted',
-    },
-    select: {
-      user_phone: true,
-      friend_phone: true,
-    },
-  });
+  const friends = await getUserFriendsService(phone);
+  // Tạo Set để dễ kiểm tra user có phải là bạn bè không
+  const friendPhoneSet = new Set(friends.map((f: any) => f.phone));
 
-  const friendsSet = new Set(
-    friends.flatMap((friend) => [friend.user_phone, friend.friend_phone])
-  );
 
-  return users.map((user) => ({
-    ...user,
-    isFriend: friendsSet.has(user.phone) && user.phone !== phone,
-  }));
+
+// Thêm isFriend cho từng user (loại trừ bản thân)
+const usersWithFriendStatus = users.map((user) => ({
+  ...user,
+  isFriend: friendPhoneSet.has(user.phone)
+}));
+
+// Đếm tổng số user thỏa điều kiện
+const totalUsers = await prismaClient.user.count({
+  where: userWhereCondition,
+});
+
+return {
+  users: usersWithFriendStatus,
+  pagination: {
+    page,
+    limit: pageSize,
+    page_size: totalUsers,
+  },
+};
 };
 
-export const getUserFriendsService = async (phone: string) => {
-    return prismaClient.$queryRaw`
-      SELECT  
-        u.phone,
-        u.username,
-        u.email,
-        u.profile_picture,
-        f.status,
-        f.created_at
-      FROM friend f
-      JOIN user u ON u.phone = f.friend_phone
-      WHERE f.user_phone = ${phone}
-        AND f.status = 'accepted'
-  
-      UNION
-  
-      SELECT 
-        u.phone,
-        u.username,
-        u.email,
-        u.profile_picture,
-        f.status,
-        f.created_at
-      FROM friend f
-      JOIN user u ON u.phone = f.user_phone
-      WHERE f.friend_phone = ${phone}
-        AND f.status = 'accepted'
-    `;
-};
+export const getUserFriendsService = async (phone: string, name?: string): Promise<User[]> => {
+  const nameFilter = name ? `%${name}%` : null
+
+  const query1 = `
+    SELECT  
+      u.phone,
+      u.name,
+      u.email,
+      u.avatar,
+      f.status,
+      f.created_at AS createdAt
+    FROM friend f
+    JOIN \`user\` u ON u.phone = f.friend_phone
+    WHERE f.user_phone = ? AND f.status = 'accepted'
+    ${nameFilter ? 'AND u.name LIKE ?' : ''}
+  `
+
+  const query2 = `
+    SELECT  
+      u.phone,
+      u.name,
+      u.email,
+      u.avatar,
+      f.status,
+      f.created_at AS createdAt
+    FROM friend f
+    JOIN \`user\` u ON u.phone = f.user_phone
+    WHERE f.friend_phone = ? AND f.status = 'accepted'
+    ${nameFilter ? 'AND u.name LIKE ?' : ''}
+  `
+
+  const params1 = nameFilter ? [phone, nameFilter] : [phone]
+  const params2 = nameFilter ? [phone, nameFilter] : [phone]
+
+  const [friends1, friends2] = await Promise.all([
+    prismaClient.$queryRawUnsafe<User[]>(query1, ...params1),
+    prismaClient.$queryRawUnsafe<User[]>(query2, ...params2)
+  ])
+
+  return [...friends1, ...friends2]
+}
+
   
 
 // getPendingFriendRequestsService: Lấy danh sách lời mời kết bạn chờ

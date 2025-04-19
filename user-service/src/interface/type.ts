@@ -71,3 +71,16 @@ export interface RegisterFormData {
   confirm_password: string;
   term_of_use: boolean; // true nếu người dùng đồng ý điều khoản sử dụng
 }
+
+
+export interface GroupMemberInfo {
+  group_id: string;
+  user_phone: string;
+  role: 'member' | 'admin' | 'owner';
+  joined_at: string; // ISO date string
+  status: number; // 1 = active
+  name: string;
+  email: string;
+  avatar: string | null;
+  user_status: string; // OFFLINE, ONLINE, etc.
+}

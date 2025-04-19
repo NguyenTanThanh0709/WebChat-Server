@@ -30,7 +30,7 @@ model User {
   name        String    @db.VarChar(50)
   email           String    @unique @db.VarChar(100)
   password_hash   String    @db.Text
-  avatar String?   @db.Text
+  avatar String?   @db.Text @default("https://img.freepik.com/premium-vector/person-with-blue-shirt-that-says-name-person_1029948-7040.jpg")
   status          String?   @default("OFFLINE") @db.VarChar(20)
   createdAt      DateTime? @default(now())
 

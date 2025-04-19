@@ -1,5 +1,5 @@
 import { Router, Request, Response, NextFunction } from "express";
-import { getUsersByPhone, getPaginatedUsers, getUsersByPhoneLike, updateUserProfile, changeUserPassword, updateUserStatusByPhone } from "../controllers/user";
+import { getUsersByPhone, getPaginatedUsers,getUserFriendsController, getUsersByPhoneLike, updateUserProfile, changeUserPassword, updateUserStatusByPhone } from "../controllers/user";
 
 const router: Router = Router();
 
@@ -19,7 +19,11 @@ router.patch('/profile/:phone/password', (req: Request, res: Response, next: Nex
 
 router.get('/paginate/:phone', (req: Request, res: Response, next: NextFunction) => {
     getPaginatedUsers(req, res).catch(next);
-  });
+});
+
+router.get('/friend/:phone', (req: Request, res: Response, next: NextFunction) => {
+    getUserFriendsController(req, res).catch(next);
+});
 
 
 export default router;
