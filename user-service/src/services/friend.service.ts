@@ -5,14 +5,14 @@ import { Friend, FriendStatus, User } from '../interface/type';
 export const sendFriendRequestService = async (
     senderPhone: string,
     receiverPhone: string
-  ): Promise<Friend> => {
+  ): Promise<string> => {
     // Kiểm tra xem người dùng có phải là chính mình không
     if (senderPhone === receiverPhone) {
-      throw new Error("You can't send a friend request to yourself");
+      return 'You can not send a friend request to yourself';
     }
 
       // Kiểm tra nếu đã có mối quan hệ kết bạn
-    const existingRequest = await prismaClient.friend.findFirst({
+    const existingRelation = await prismaClient.friend.findFirst({
         where: {
         OR: [
             { user_phone: senderPhone, friend_phone: receiverPhone },
@@ -21,8 +21,29 @@ export const sendFriendRequestService = async (
         },
     });
 
-    if (existingRequest) {
-        throw new Error('A friend request already exists or they are already friends');
+    if (existingRelation) {
+      if (existingRelation.status === 'accepted') {
+        return 'You are already friends';
+      }
+  
+      if (existingRelation.status === 'pending') {
+        // Nếu lời mời là từ friend → user thì chấp nhận luôn
+        if (existingRelation.user_phone === receiverPhone && existingRelation.friend_phone === senderPhone) {
+          await prismaClient.friend.update({
+            where: {
+              user_phone_friend_phone: {
+                user_phone: receiverPhone,
+                friend_phone: senderPhone
+              }
+            },
+            data: { status: 'accepted' }
+          });
+          return 'Friend request accepted automatically.';
+
+        }
+  
+        throw new Error('Lời mời kết bạn đã được gửi trước đó.');
+      }
     }
 
     const newRequest = await prismaClient.friend.create({
@@ -33,7 +54,8 @@ export const sendFriendRequestService = async (
         },
       });
     
-      return newRequest;
+      return 'Friend request sent.';
+
 
 }
 
@@ -132,9 +154,9 @@ export const unfriendUserService = async (
     await prismaClient.friend.delete({
       where: {
         user_phone_friend_phone: {
-          user_phone: userPhone,
-          friend_phone: friendPhone,
-        },
-      },
+          user_phone: existingFriendship.user_phone,
+          friend_phone: existingFriendship.friend_phone
+        }
+      }
     });
 };
