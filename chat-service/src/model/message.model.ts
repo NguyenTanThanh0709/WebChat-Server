@@ -10,18 +10,23 @@ const messageSchema = new Schema<IMessage & Document>({
     required: true,
     enum: ['text', 'image', 'file', 'video', 'video_call_signal'],
   },
-  timestamp: { type: Date, required: true },
+  timestamp: { type: Date, required: true, default: Date.now  },
   status: {
     type: String,
     required: true,
     enum: ['sent', 'delivered', 'read'],
+    default: 'sent',
   },
+
+  text: { type: String },
+  // file, image, video
   url_file: { type: String },
   name_file: { type: String },
-  size_file: { type: Number },
+  size_file: { type: String },
   mime_type_file: { type: String },
-  duration_video: { type: Number },
-  text: { type: String },
+  duration_video: { type: String },
+
+  // video call
   type_video_call: {
     type: String,
     enum: ['offer', 'answer', 'ice-candidate'],
@@ -29,7 +34,12 @@ const messageSchema = new Schema<IMessage & Document>({
   sdp: { type: String },
   candidate: { type: String },
   sdpMid: { type: String },
-  sdpMLineIndex: { type: Number },
+  sdpMLineIndex: { type: String },
 });
+
+// Tạo chỉ mục cho các trường cần tối ưu truy vấn
+messageSchema.index({ sender: 1, receiver: 1, timestamp: 1 }); // Tạo chỉ mục kết hợp cho sender, receiver, và timestamp
+messageSchema.index({ is_group: 1 }); // Tạo chỉ mục cho is_group nếu cần thiết
+messageSchema.index({ content_type: 1 }); // Tạo chỉ mục cho content_type nếu cần thiết
 
 export const MessageModel = model<IMessage & Document>('Message', messageSchema);
