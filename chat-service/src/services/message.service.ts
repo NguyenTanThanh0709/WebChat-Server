@@ -41,6 +41,13 @@ export class MessageService {
             // If the lastMessageTimestamp is provided, add it to the query
             if (lastMessageTimestamp) {
                 query = { ...query, timestamp: { $lt: new Date(lastMessageTimestamp) } };
+                            // Fetch the messages sorted by timestamp (descending) and limit the number of results
+            const messages = await MessageModel.find(query)
+            .sort({ timestamp: -1 })
+            .exec();
+
+            // Return the fetched messages
+            return messages.reverse();
             }
 
             // Fetch the messages sorted by timestamp (descending) and limit the number of results
