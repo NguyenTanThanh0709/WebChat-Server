@@ -21,7 +21,7 @@ export class MessageService {
         sender: string, 
         receiver: string, 
         isGroup: boolean,
-        limit: number = 20,  // default to 20 messages per page
+        limit: number = 5,  // default to 20 messages per page
         lastMessageTimestamp?: string // optional parameter to fetch messages after the given timestamp
     ): Promise<IMessage[]> {
         try {
@@ -44,6 +44,7 @@ export class MessageService {
                             // Fetch the messages sorted by timestamp (descending) and limit the number of results
             const messages = await MessageModel.find(query)
             .sort({ timestamp: -1 })
+            .limit(limit)
             .exec();
 
             // Return the fetched messages
