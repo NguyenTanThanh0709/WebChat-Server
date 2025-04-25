@@ -7,6 +7,7 @@ import { notFound, errorHandler } from "./middleware/index.middleware";
 import api from "./api/index.api";
 import { connectToDB } from './config/mongoose';
 import messageRoutes from './api/message.route'; // đường dẫn tuỳ theo cấu trúc thư mục
+import noticationRoutes from './api/notification.route'
 
 
 const app:Express = express()
@@ -24,6 +25,7 @@ app.use(bodyParser.json());
 connectToDB()
 app.use("/", api);
 app.use('/api/message', messageRoutes);
+app.use('/api/notification', noticationRoutes);
 
 
 app.use(notFound);
